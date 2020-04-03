@@ -1,0 +1,8 @@
+prefix=/home/kartik/Documents/SensorFusion_ws/install
+
+Name: CSV_convertor
+Description: Description of CSV_convertor
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
