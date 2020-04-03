@@ -1,0 +1,8 @@
+prefix=/home/kartik/Documents/SensorFusion_ws/install
+
+Name: phone_description
+Description: Description of phone_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

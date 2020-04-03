@@ -378,6 +378,12 @@ message_generation_DIR:PATH=/opt/ros/melodic/share/message_generation/cmake
 //The directory containing a CMake configuration file for message_runtime.
 message_runtime_DIR:PATH=/opt/ros/melodic/share/message_runtime/cmake
 
+//Value Computed by CMake
+phone_description_BINARY_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/build/phone_description
+
+//Value Computed by CMake
+phone_description_SOURCE_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/src/phone_description
+
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/melodic/share/rosconsole/cmake
 
@@ -406,10 +412,10 @@ rqt_pose_view_BINARY_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/build/rqt
 rqt_pose_view_SOURCE_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/src/rqt_pose_view
 
 //Value Computed by CMake
-sensor_fusion_pkg_BINARY_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/build/sensor_fusion_pkg
+sensor_fusion_pkg_BINARY_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/build/SensorFusion
 
 //Value Computed by CMake
-sensor_fusion_pkg_SOURCE_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/src/sensor_fusion_pkg
+sensor_fusion_pkg_SOURCE_DIR:STATIC=/home/kartik/Documents/SensorFusion_ws/src/SensorFusion
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/melodic/share/std_msgs/cmake
@@ -527,7 +533,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

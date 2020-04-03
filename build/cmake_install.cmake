@@ -133,7 +133,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/kartik/Documents/SensorFusion_ws/build/gtest/cmake_install.cmake")
   include("/home/kartik/Documents/SensorFusion_ws/build/rqt_pose_view/cmake_install.cmake")
   include("/home/kartik/Documents/SensorFusion_ws/build/csv_convertor_pkg/cmake_install.cmake")
-  include("/home/kartik/Documents/SensorFusion_ws/build/sensor_fusion_pkg/cmake_install.cmake")
+  include("/home/kartik/Documents/SensorFusion_ws/build/phone_description/cmake_install.cmake")
+  include("/home/kartik/Documents/SensorFusion_ws/build/SensorFusion/cmake_install.cmake")
 
 endif()
 
