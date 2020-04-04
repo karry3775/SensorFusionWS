@@ -9,6 +9,9 @@ import math as m
 
 ## INITIALIZE THE NODE
 rospy.init_node("Gyro_orientation_node")
+# create RPY publisher for gyro
+rpyG_pub_stamped = rospy.Publisher("/RPYG_topic_stamped", SensorMsgStamped, queue_size = 10)
+
 
 ## GLOBAL VARIABLES
 prev_time = Time.now().secs + Time.now().nsecs * 10 ** (-9)
@@ -30,7 +33,9 @@ def gyro_cb(msg_gyro):
     wx, wy, wz = msg_gyro.data
 
     # we need to calculate dt
-    cur_time = Time.now().secs + Time.now().nsecs * 10 ** (-9)
+    secs = Time.now().secs
+    nsecs = Time.now().nsecs
+    cur_time =  secs + nsecs * 10 ** (-9)
     dt = cur_time - prev_time
     prev_time = cur_time
 
@@ -48,6 +53,14 @@ def gyro_cb(msg_gyro):
     # print the rollG, pitchG, yawG
     if DEBUG:
         print("rollG : {}, pitchG : {}, yawG : {}".format(m.degrees(rollG), m.degrees(pitchG), m.degrees(yawG)))
+
+    # publish the roll pitch yaw topic
+    stamped_msg = SensorMsgStamped()
+    stamped_msg.data = [rollG, pitchG, yawG]
+    stamped_msg.header.stamp.secs = secs
+    stamped_msg.header.stamp.nsecs = nsecs
+
+    rpyG_pub_stamped.publish(stamped_msg)
 
 if __name__ == "__main__":
     try:

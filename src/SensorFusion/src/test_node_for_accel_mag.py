@@ -7,16 +7,17 @@ from rospy import Time
 import numpy as np
 import math as m
 import message_filters # for time synchronization
+
 ## INITIALIZE THE NODE
 rospy.init_node("RPY_accel_mag_node")
+
+# create RPY publisher for accel + mag data
+rpyAM_pub_stamped = rospy.Publisher("/RPYAM_topic_stamped", SensorMsgStamped, queue_size = 10)
 
 ## GLOBAL VARIABLES
 curtime = Time.now().secs + Time.now().nsecs * 10 ** (-9)
 orientation = []
 DEBUG = True
-
-## CREATE A PUBLISHER FOR FUSED ORIENTATION
-fused_pub = rospy.Publisher("/Fused_orientation_topic", SensorMsgStamped, queue_size = 10)
 
 ## CREATE A BROADCASTER TO PUBLISH CORRECT FRAMES FOR VISUALIZATION
 tf_br = TransformBroadcaster()
@@ -66,6 +67,15 @@ def got_accel_mag(msg_accel, msg_mag):
 
     ## LETS PUBLISH THIS TO THE BROADCASTER
     tf_br.sendTransform((0.0,0.0,0.5), (q[0],q[1],q[2],q[3]), Time.now(), 'base_link', 'world')
+
+    # publish the roll pitch yaw topic
+    stamped_msg = SensorMsgStamped()
+    stamped_msg.data = [rollA, pitchA, yawM]
+    stamped_msg.header.stamp.secs = Time.now().secs
+    stamped_msg.header.stamp.nsecs = Time.now().nsecs * 10 ** (-9)
+
+    rpyAM_pub_stamped.publish(stamped_msg)
+
 
 if __name__ == "__main__":
     try:
