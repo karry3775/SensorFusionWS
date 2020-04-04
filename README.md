@@ -29,3 +29,8 @@ $ roslaunch phone_description phone_spawn.launch
 $ roslaunch phone_description phone_rviz.launch
 
 ```
+
+### Demonstration of Complimentary Filter
+
+[![Complimentary Filter](http://img.youtube.com/vi/bj4u9_aLW6o/0.jpg)](https://www.youtube.com/watch?v=bj4u9_aLW6o "Complimentary Filter")
+
