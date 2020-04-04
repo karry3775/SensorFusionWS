@@ -17,7 +17,7 @@ $ git clone https://github.com/karry3775/SensorFusion.git
 - run the following commands
 ```
 $ roscore
-$ rosrun sensor_fusion_pkg sensor_streamer.py
+$ rosrun SensorFusion sensor_streamer.py
 ```
 - if the above command gives error then move to the location of this file
 ```
@@ -29,7 +29,7 @@ $ chmod +x sensor_streamer.py
 - Current implementation only supports Accelerometer, Gyroscope, Magnetometer and Orientation data
 - You will see data printed on the terminal from which the following command was run
 ```
-$ rosrun sensor_fusion_pkg sensor_streamer.py
+$ rosrun SensorFusion sensor_streamer.py
 ```
 - Open another terminal and type
 ```
