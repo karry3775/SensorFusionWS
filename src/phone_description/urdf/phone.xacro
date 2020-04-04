@@ -13,12 +13,12 @@
     </inertial>
     <collision name = "collision">
       <geometry>
-        <mesh filename = "package://phone_description/meshes/phone_new.dae"/>
+        <mesh filename = "package://phone_description/meshes/phone_new.dae" scale="100 100 100"/>
       </geometry>
     </collision>
     <visual name = "visual">
       <geometry>
-        <mesh filename = "package://phone_description/meshes/phone_new.dae"/>
+        <mesh filename = "package://phone_description/meshes/phone_new.dae" scale="100 100 100"/>
       </geometry>
     </visual>
   </link>
