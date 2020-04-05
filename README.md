@@ -1,6 +1,6 @@
 # SensorFusionWS
 
-### A ROS-based open-source software for fusing and visualizing SmartPhone Orientation
+### A ROS-based open-source software for fusing mobile sensor data and visualizing SmartPhone Orientation
 
 ### Connecting the Phone through PhonePi App
 - Connect your phone and computer to the same network (Hotspot can be used)
