@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from sensor_fusion_pkg.msg import SensorMsgStamped
-from tf.transformations import euler_from_quaternion, quaternion_from_euler
+from tf.transformations import euler_from_quaternion, quaternion_from_euler, quaternion_multiply
 from tf import TransformBroadcaster
 from rospy import Time
 import numpy as np
@@ -17,9 +17,8 @@ rpyKF_pub_stamped = rospy.Publisher("/RPYKF_topic_stamped", SensorMsgStamped, qu
 tf_br = TransformBroadcaster()
 
 ## GLOBAL VARIABLES, F for fused
-rollF = None
-pitchF = None
-yawF = None
+q = None
+INI_SET = False
 prev_time = Time.now().secs + Time.now().nsecs * 10 ** (-9)
 
 ## KALMAN FILTER VARIABLES
@@ -42,7 +41,7 @@ dt = 0.1
 def wrapToPi(theta):
     return m.atan2(m.sin(theta), m.cos(theta))
 
-def integrateTillT(roll, pitch, yaw, dt, time_elapsed, wx, wy, wz, P):
+def integrateTillT(q, dt, time_elapsed, wx, wy, wz, P):
     if time_elapsed <= dt:
         dt = time_elapsed
 
@@ -50,9 +49,8 @@ def integrateTillT(roll, pitch, yaw, dt, time_elapsed, wx, wy, wz, P):
     ini_time = dt
     while(ini_time <= time_elapsed):
         # make the state prediction
-        roll = roll + wx * dt
-        pitch = pitch + wy * dt
-        yaw = yaw + wz * dt
+        current_gyro_quat = quaternion_from_euler(wx * dt, wy * dt, wz * dt)
+        q = quaternion_multiply(current_gyro_quat, q)
         # make the covariance prediction
         P += Q
         ini_time += dt
@@ -60,16 +58,16 @@ def integrateTillT(roll, pitch, yaw, dt, time_elapsed, wx, wy, wz, P):
     # we will run into complications if time_elapsed is not evenly divided by dt
     if ((ini_time - time_elapsed) - dt > 0.001):
         # we will need to integrate once more
-        roll = roll + wx * (time_elapsed - (ini_time - dt))
-        pitch = pitch + wy * (time_elapsed - (ini_time - dt))
-        yaw = yaw + wz * (time_elapsed - (ini_time - dt))
+        del_t = time_elapsed - (ini_time - dt)
+        current_gyro_quat = quaternion_from_euler(wx * del_t, wy * del_t, wz * del_t)
+        q = quaternion_multiply(current_gyro_quat, q)
         P += Q
 
-    return roll, pitch, yaw, P
+    return q, P
 
 def gyro_cb(msg_gyro):
-    global rollF, pitchF, yawF, prev_time, P
-    if rollF == None:
+    global q, prev_time, P, INI_SET
+    if not INI_SET:
         # initial state is not set
         return
 
@@ -85,22 +83,19 @@ def gyro_cb(msg_gyro):
 
     # integrate using eulers integration method to find the estimates and covariance
     # prediction
-    rollF, pitchF, yawF, P = integrateTillT(rollF, pitchF, yawF, dt, time_elapsed, wx, wy, wz, P)
+    q, P = integrateTillT(q, dt, time_elapsed, wx, wy, wz, P)
 
+    rollF, pitchF, yawF = euler_from_quaternion(q)
     print("[GYRO_CB] rollF : {}, pitchF : {}, yawF : {}, P: \n{}".format(m.degrees(rollF), m.degrees(pitchF), m.degrees(yawF), P))
-
-    ## SEND TRANSFORM
-    # convert to quaternion_from_euler
-    q = quaternion_from_euler(rollF, pitchF, yawF)
 
     # lets publish this transform
     tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
 
 def fusion_cb(msg_gyro, msg_accel, msg_mag):
-    global rollF, pitchF, yawF, prev_time, P
+    global q, prev_time, P, INI_SET
 
     SKIP_GYRO = False
-    if not rollF:
+    if not INI_SET:
         SKIP_GYRO = True
 
     ## extract data
@@ -144,7 +139,10 @@ def fusion_cb(msg_gyro, msg_accel, msg_mag):
         prev_time = cur_time
 
         # integrate using eulers integration method to find the estimates and covariance
-        rollF, pitchF, yawF, P = integrateTillT(rollF, pitchF, yawF, dt, time_elapsed, wx, wy, wz, P)
+        q, P = integrateTillT(q, dt, time_elapsed, wx, wy, wz, P)
+
+        # extract angles
+        rollF, pitchF, yawF = euler_from_quaternion(q)
 
         # compute kalman gain
         K = np.dot(P, np.linalg.inv(P + R))
@@ -157,21 +155,22 @@ def fusion_cb(msg_gyro, msg_accel, msg_mag):
         state = [float(val) for val in state]
         rollF, pitchF, yawF = state
 
+        # update the quaternion
+        q = quaternion_from_euler(rollF, pitchF, yawF)
+
         # update covariance
         P = np.dot((np.eye(3) - K), P)
 
     else:
+        INI_SET = True
         # there is no gyro measurement yet
         rollF = rollA
         pitchF = pitchA
         yawF = yawM
+        q = quaternion_from_euler(rollF, pitchF, yawF)
         P = R # and thus the initial noise would be equal to noise in measurement
 
     print("[FUSION_CB] rollF : {}, pitchF : {}, yawF : {}, P: \n{}".format(m.degrees(rollF), m.degrees(pitchF), m.degrees(yawF), P))
-
-    ## SEND TRANSFORM
-    # convert to quaternion_from_euler
-    q = quaternion_from_euler(rollF, pitchF, yawF)
 
     # lets publish this transform
     tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
