@@ -88,8 +88,15 @@ def gyro_cb(msg_gyro):
     rollF, pitchF, yawF = euler_from_quaternion(q)
     print("[GYRO_CB] rollF : {}, pitchF : {}, yawF : {}, P: \n{}".format(m.degrees(rollF), m.degrees(pitchF), m.degrees(yawF), P))
 
-    # lets publish this transform
-    tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
+    # publish to topic
+    stamped_msg = SensorMsgStamped()
+    stamped_msg.data = [rollF, pitchF, yawF]
+    stamped_msg.header.stamp.secs = secs
+    stamped_msg.header.stamp.nsecs = nsecs
+
+    rpyKF_pub_stamped.publish(stamped_msg)
+
+
 
 def fusion_cb(msg_gyro, msg_accel, msg_mag):
     global q, prev_time, P, INI_SET
@@ -172,8 +179,13 @@ def fusion_cb(msg_gyro, msg_accel, msg_mag):
 
     print("[FUSION_CB] rollF : {}, pitchF : {}, yawF : {}, P: \n{}".format(m.degrees(rollF), m.degrees(pitchF), m.degrees(yawF), P))
 
-    # lets publish this transform
-    tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
+    # publish to topic
+    stamped_msg = SensorMsgStamped()
+    stamped_msg.data = [rollF, pitchF, yawF]
+    stamped_msg.header.stamp.secs = Time.now().secs
+    stamped_msg.header.stamp.nsecs = Time.now().nsecs
+
+    rpyKF_pub_stamped.publish(stamped_msg)
 
 if __name__ == "__main__":
     try:
