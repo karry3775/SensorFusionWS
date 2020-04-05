@@ -4,7 +4,7 @@
 
 ### Connecting the Phone through PhonePi App
 - Connect your phone and computer to the same network (Hotspot can be used)
-- Enter <ip address>:5000 to the URL field in PhonePi app
+- Enter \<ip address\>:5000 to the URL field in PhonePi app
 - ip addess could be find using ifconfig command on linux and ipconfig on windows. 
 
 ### Visualize Phone Orientation (Just from Accelerometer and Magnetometer data)
