@@ -10,8 +10,8 @@ import message_filters # for time synchronization
 
 ## INITIALIZE NODE
 rospy.init_node("Complimentary_filter_node")
-# create RPY publisher for fused data
-rpyF_pub_stamped = rospy.Publisher("/RPYFUSED_topic_stamped", SensorMsgStamped, queue_size = 10)
+# create RPY publisher for fused data from complimentary filtering
+rpyCF_pub_stamped = rospy.Publisher("/RPYCF_topic_stamped", SensorMsgStamped, queue_size = 10)
 
 ## CREATE A BROADCASTER TO PUBLISH CORRECT FRAMES FOR VISUALIZATION
 tf_br = TransformBroadcaster()
@@ -41,6 +41,8 @@ def gyro_cb(msg_gyro):
     cur_time = secs + nsecs * 10 ** (-9)
     dt = cur_time - prev_time
     prev_time = cur_time
+
+    print("the time gap is: {}".format(dt))
 
     # calculate the roll pitch and yaw
     rollF = wrapToPi(rollF + wx * dt);
@@ -101,6 +103,8 @@ def fusion_cb(msg_gyro, msg_accel, msg_mag):
         dt = cur_time - prev_time
         prev_time = cur_time
 
+        print("the time gap is: {}".format(dt))
+        
         # calculate roll, pitch and yaw values
         rollG = wrapToPi(rollF + wx * dt);
         pitchG = wrapToPi(pitchF + wy * dt);

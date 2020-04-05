@@ -34,3 +34,12 @@ $ roslaunch phone_description phone_rviz.launch
 
 [![Complimentary Filter](http://img.youtube.com/vi/bj4u9_aLW6o/0.jpg)](https://www.youtube.com/watch?v=bj4u9_aLW6o "Complimentary Filter")
 
+### Visualize Phone Orientation (Fused orientation from Gyro, Accelerometer and Magnetometer using Kalman Filter)
+```
+$ roscore
+$ rosrun sensor_fusion_pkg sensor_streamer.py
+$ rosrun sensor_fusion_pkg kalman_filter.py
+$ roslaunch phone_description phone_spawn.launch
+$ roslaunch phone_description phone_rviz.launch
+
+```
