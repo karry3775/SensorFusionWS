@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from sensor_fusion_pkg.msg import SensorMsgStamped
-from tf.transformations import euler_from_quaternion, quaternion_from_euler
+from tf.transformations import euler_from_quaternion, quaternion_from_euler, quaternion_multiply
 from tf import TransformBroadcaster
 from rospy import Time
 import numpy as np
@@ -19,16 +19,13 @@ DEBUG = True
 
 ## CREATE A BROADCASTER TO PUBLISH CORRECT FRAMES FOR VISUALIZATION
 tf_br = TransformBroadcaster()
-rollG = 0;
-pitchG = 0
-yawG = 0
-
+q = quaternion_from_euler(0,0,0)
 
 def wrapToPi(theta):
     return m.atan2(m.sin(theta), m.cos(theta))
 
 def gyro_cb(msg_gyro):
-    global rollG, pitchG, yawG, prev_time
+    global rollG, pitchG, yawG, prev_time, q
     # extract data
     wx, wy, wz = msg_gyro.data
 
@@ -39,13 +36,10 @@ def gyro_cb(msg_gyro):
     dt = cur_time - prev_time
     prev_time = cur_time
 
-    # calculate roll, pitch and yaw values
-    rollG = wrapToPi(rollG + wx * dt);
-    pitchG = wrapToPi(pitchG + wy * dt);
-    yawG = wrapToPi(yawG + wz * dt);
-
-    # convert to quaternion_from_euler
-    q = quaternion_from_euler(rollG, pitchG, yawG)
+    # process gyroscope data
+    current_gyro_quat = quaternion_from_euler(wx * dt, wy * dt, wz * dt)
+    q = quaternion_multiply(current_gyro_quat, q)
+    rollG, pitchG, yawG = euler_from_quaternion(q)
 
     # lets publish this transform
     tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")

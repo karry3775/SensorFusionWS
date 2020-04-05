@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from sensor_fusion_pkg.msg import SensorMsgStamped
-from tf.transformations import euler_from_quaternion, quaternion_from_euler
+from tf.transformations import euler_from_quaternion, quaternion_from_euler, quaternion_multiply
 from tf import TransformBroadcaster
 from rospy import Time
 import numpy as np
@@ -17,20 +17,19 @@ rpyCF_pub_stamped = rospy.Publisher("/RPYCF_topic_stamped", SensorMsgStamped, qu
 tf_br = TransformBroadcaster()
 
 ## GLOBAL VARIABLES
-rollF = None;
-pitchF = None;
-yawF = None;
+q = None
+INI_SET = False
 prev_time = Time.now().secs + Time.now().nsecs * 10 ** (-9)
 g_wt = 0.75
-am_wt = 0.25
+am_wt = 1 - g_wt
 
 
 def wrapToPi(theta):
     return m.atan2(m.sin(theta), m.cos(theta))
 
 def gyro_cb(msg_gyro):
-    global rollF, pitchF, yawF, prev_time
-    if rollF == None:
+    global q, prev_time, INI_SET
+    if not INI_SET:
         return
     # extract data
     wx, wy, wz = msg_gyro.data
@@ -44,25 +43,21 @@ def gyro_cb(msg_gyro):
 
     print("the time gap is: {}".format(dt))
 
-    # calculate the roll pitch and yaw
-    rollF = wrapToPi(rollF + wx * dt);
-    pitchF = wrapToPi(pitchF + wy * dt);
-    yawF = wrapToPi(yawF + wz * dt);
+    # process gyroscope data
+    current_gyro_quat = quaternion_from_euler(wx * dt, wy * dt, wz * dt)
+    q = quaternion_multiply(current_gyro_quat, q)
+    rollF, pitchF, yawF = euler_from_quaternion(q)
 
     print("[GYRO_CB] rollF : {}, pitchF : {}, yawF : {}".format(m.degrees(rollF), m.degrees(pitchF), m.degrees(yawF)))
-
-    ## SEND TRANSFORM
-    # convert to quaternion_from_euler
-    q = quaternion_from_euler(rollF, pitchF, yawF)
 
     # lets publish this transform
     tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
 
 def fusion_cb(msg_gyro, msg_accel, msg_mag):
-    global rollF, pitchF, yawF, prev_time
+    global q, prev_time, INI_SET
 
     SKIP_GYRO = False
-    if not rollF:
+    if not INI_SET:
         SKIP_GYRO = True
     ## extract data
     ax, ay, az = msg_accel.data
@@ -104,26 +99,25 @@ def fusion_cb(msg_gyro, msg_accel, msg_mag):
         prev_time = cur_time
 
         print("the time gap is: {}".format(dt))
-        
-        # calculate roll, pitch and yaw values
-        rollG = wrapToPi(rollF + wx * dt);
-        pitchG = wrapToPi(pitchF + wy * dt);
-        yawG = wrapToPi(yawF + wz * dt);
+
+        # process gyroscope data
+        current_gyro_quat = quaternion_from_euler(wx * dt, wy * dt, wz * dt)
+        q = quaternion_multiply(current_gyro_quat, q)
+        rollG, pitchG, yawG = euler_from_quaternion(q)
 
         ### COMPLIMENTARY FILTER ###
         rollF = rollG * g_wt + rollA * am_wt
         pitchF = pitchG * g_wt + pitchA * am_wt
         yawF = yawG * g_wt + yawM * am_wt
+
+        # set back the quaternion
+        q = quaternion_from_euler(rollF, pitchF, yawF)
     else:
-        rollF = rollA
-        pitchF = pitchA
-        yawF = yawM
+        INI_SET = True
+        q = quaternion_from_euler(rollA, pitchA, yawM)
 
+    rollF, pitchF, yawF =  euler_from_quaternion(q)
     print("[FUSION_CB] rollF : {}, pitchF : {}, yawF : {}".format(m.degrees(rollF), m.degrees(pitchF), m.degrees(yawF)))
-
-    ## SEND TRANSFORM
-    # convert to quaternion_from_euler
-    q = quaternion_from_euler(rollF, pitchF, yawF)
 
     # lets publish this transform
     tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
