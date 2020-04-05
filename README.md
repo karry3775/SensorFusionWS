@@ -1,5 +1,7 @@
 # SensorFusionWS
 
+### A ROS-based open-source software for fusing and visualizing SmartPhone Orientation
+
 ### Visualize Phone Orientation (Just from Accelerometer and Magnetometer data)
 ```
 $ roscore
