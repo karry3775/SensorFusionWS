@@ -7,4 +7,5 @@
 subdirs("gtest")
 subdirs("rqt_pose_view")
 subdirs("csv_convertor_pkg")
-subdirs("sensor_fusion_pkg")
+subdirs("phone_description")
+subdirs("SensorFusion")

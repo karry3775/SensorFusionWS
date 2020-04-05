@@ -270,7 +270,7 @@ if __name__ == '__main__':
 
         if not args.local:
             # environment at generation time
-            CMAKE_PREFIX_PATH = '/home/kartik/Documents/ceiling_pallet_jack_ws/devel;/home/kartik/Documents/SensorFusion_ws/devel;/home/kartik/pallet_new_ws/devel;/home/kartik/ZH_PAPER/zh_ws/devel;/opt/ros/melodic'.split(';')
+            CMAKE_PREFIX_PATH = '/home/kartik/Documents/gazebo_practice_ws/devel;/home/kartik/Documents/ceiling_pallet_jack_ws/devel;/home/kartik/Documents/SensorFusion_ws/devel;/home/kartik/pallet_new_ws/devel;/home/kartik/ZH_PAPER/zh_ws/devel;/opt/ros/melodic'.split(';')
         else:
             # don't consider any other prefix path than this one
             CMAKE_PREFIX_PATH = []

@@ -1,2 +1,2 @@
-csv_convertor_pkg:rqt_pose_view:sensor_fusion_pkg
+SensorFusion:csv_convertor_pkg:phone_description:rqt_pose_view
 -DCATKIN_DEVEL_PREFIX=/home/kartik/Documents/SensorFusion_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kartik/Documents/SensorFusion_ws/install -G Unix Makefiles

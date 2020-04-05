@@ -67,7 +67,7 @@ set(sensor_fusion_pkg_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(sensor_fusion_pkg_SOURCE_PREFIX /home/kartik/Documents/SensorFusion_ws/src/sensor_fusion_pkg)
+  set(sensor_fusion_pkg_SOURCE_PREFIX /home/kartik/Documents/SensorFusion_ws/src/SensorFusion)
   set(sensor_fusion_pkg_DEVEL_PREFIX /home/kartik/Documents/SensorFusion_ws/devel)
   set(sensor_fusion_pkg_INSTALL_PREFIX "")
   set(sensor_fusion_pkg_PREFIX ${sensor_fusion_pkg_DEVEL_PREFIX})
@@ -110,7 +110,7 @@ if(NOT "/home/kartik/Documents/SensorFusion_ws/devel/include " STREQUAL " ")
         message(FATAL_ERROR "Project 'sensor_fusion_pkg' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'sensor_fusion_pkg' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/kartik/Documents/SensorFusion_ws/src/sensor_fusion_pkg/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'sensor_fusion_pkg' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/kartik/Documents/SensorFusion_ws/src/SensorFusion/${idir}'.  ${_report}")
     endif()
     _list_append_unique(sensor_fusion_pkg_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/kartik/Documents/SensorFusion_ws/devel/lib;/home/kartik/Documents/ceiling_pallet_jack_ws/devel/lib;/home/kartik/Documents/SensorFusion_ws/devel/lib;/home/kartik/pallet_new_ws/devel/lib;/home/kartik/ZH_PAPER/zh_ws/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/kartik/Documents/SensorFusion_ws/devel/lib;/home/kartik/Documents/gazebo_practice_ws/devel/lib;/home/kartik/Documents/ceiling_pallet_jack_ws/devel/lib;/home/kartik/Documents/SensorFusion_ws/devel/lib;/home/kartik/pallet_new_ws/devel/lib;/home/kartik/ZH_PAPER/zh_ws/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
