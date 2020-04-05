@@ -43,3 +43,10 @@ $ roslaunch phone_description phone_spawn.launch
 $ roslaunch phone_description phone_rviz.launch
 
 ```
+### Comparison between Kalman Filter and Complimentary Filter estimates
+#### Body Yaw 
+![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/yaw_comparison.png)
+#### Body Pitch
+![Body Pitch](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/pitch_comparison.png)
+#### Body Roll
+![Body Roll](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/roll_comparison.png)
