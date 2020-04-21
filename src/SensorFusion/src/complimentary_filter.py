@@ -130,6 +130,9 @@ def fusion_cb(msg_gyro, msg_accel, msg_mag):
     stamped_msg.header.stamp.secs = Time.now().secs
     stamped_msg.header.stamp.nsecs = Time.now().nsecs
 
+    # lets publish this transform
+    tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
+
     rpyCF_pub_stamped.publish(stamped_msg)
 
 

@@ -94,6 +94,9 @@ def gyro_cb(msg_gyro):
     stamped_msg.header.stamp.secs = secs
     stamped_msg.header.stamp.nsecs = nsecs
 
+    # lets publish this transform
+    tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
+    
     rpyKF_pub_stamped.publish(stamped_msg)
 
 
