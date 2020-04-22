@@ -83,10 +83,13 @@ $ roslaunch phone_description phone_rviz.launch
 ![kf_correction_state](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kf_correction_state.gif)
 
 ![kf_correction_cov](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kf_correction_cov.gif)
-### Comparison between Kalman Filter and Complimentary Filter estimates
-#### Body Yaw 
-![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/yaw_comparison.png)
-#### Body Pitch
-![Body Pitch](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/pitch_comparison.png)
-#### Body Roll
-![Body Roll](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/roll_comparison.png)
+
+### Comparison between fused and gyro only estimates (RPYCF - complementary filter, RPYG - gyro only, RPYKF - kalman filter)
+### Body Yaw
+![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/comparison_yaw2.png)
+
+### Body Pitch
+![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/comparison_pitch.png)
+
+### Body Roll
+![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/comparison_roll.png)
