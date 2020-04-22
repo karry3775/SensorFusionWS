@@ -131,4 +131,4 @@ $ "rosrun sensor_fusion_pkg kalman_filter_robot.py" in separate terminal
 $ Click the play button to publish topics.  You should see text being printed in executable terminal
 $ Stop publishing at any time and press ctrl+c in terminal.  Plot will be generated
 ```
-
+![robot](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/robot_arm_benchmark.png)
