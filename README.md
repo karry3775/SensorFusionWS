@@ -106,4 +106,15 @@ $ roslaunch phone_description phone_rviz.launch
 ![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/comparison_roll.png)
 
 ### Comparison with accurate Angular Benchmark
+```
+$ roscore
+$ rosrun sensor_fusion_pkg sensor_streamer.py
+$ rosrun sensor_fusion_pkg ground_truth_comparison.py
+$ rosrun sensor_fusion_pkg kalman_filter.py
+$ rosrun sensor_fusion_pkg complimentary_filter.py
+$ rosrun sensor_fusion_pkg gyro_only_orientation.py
+```
+##### Note : The phone needs to be aligned with the angular benchmark in such a way that 0 degree yaw corresponds with 0 degrees. Successive positioning of the phones heading on the benchmark is carried out.4
+
+![benchmark](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/GT_BENCHMARK_cropped-1.png)
 ![compare](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/gt_2.png)
