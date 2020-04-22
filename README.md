@@ -118,3 +118,14 @@ $ rosrun sensor_fusion_pkg gyro_only_orientation.py
 
 ![benchmark](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/GT_BENCHMARK_cropped-1.png)
 ![compare](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/gt_2.png)
+
+### Benchmark using ground truth obtained using articulated robotic arm (ABB4600)
+```
+$ roscore
+$ rosrun sensor_fusion_pkg sensor_streamer.py
+$ rosrun sensor_fusion_pkg ground_truth_comparison.py
+$ rosrun sensor_fusion_pkg kalman_filter.py
+$ rosrun sensor_fusion_pkg complimentary_filter.py
+$ rosrun sensor_fusion_pkg gyro_only_orientation.py
+```
+
