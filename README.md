@@ -17,7 +17,7 @@ $ roslaunch phone_description phone_rviz.launch
 
 ```
 
-### Visualize Phone Orientation (Just from GyroScope data)
+### Visualize Phone Orientation (Just from Gyroscope data)
 ```
 $ roscore
 $ rosrun sensor_fusion_pkg sensor_streamer.py
