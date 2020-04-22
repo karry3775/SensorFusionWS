@@ -55,9 +55,15 @@ $ roslaunch phone_description phone_rviz.launch
 
 ![yaw_g](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/yaw_gyro.gif)
 
-### Demonstration of Complementary Filter
-
+### Real Time Visualization 
 [![Complimentary Filter](http://img.youtube.com/vi/bj4u9_aLW6o/0.jpg)](https://www.youtube.com/watch?v=bj4u9_aLW6o "Complimentary Filter")
+
+### Kalman Filter Estimates
+[![Kalman Filter](http://img.youtube.com/vi/mp79Vo_6c6o/0.jpg)](https://www.youtube.com/watch?v=mp79Vo_6c6o "Kalman Filter")
+
+### Complementary Filter Estimates
+[![Complementary Filter](http://img.youtube.com/vi/qFsYn6i03hA/0.jpg)](https://www.youtube.com/watch?v=qFsYn6i03hA "Complementary Filter")
+
 
 ### Visualize Phone Orientation (Fused orientation from Gyro, Accelerometer and Magnetometer using Kalman Filter)
 ```
