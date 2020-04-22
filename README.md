@@ -1,5 +1,11 @@
 # SensorFusionWS
 
+# System and software used:
+- Python
+- ROS melodic
+- Ubuntu 18.01 LTS
+- Gazebo 9 simulator
+
 ### A ROS-based open-source software for fusing mobile sensor data and visualizing SmartPhone Orientation
 
 ### Connecting the Phone through PhonePi App
