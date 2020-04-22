@@ -1,6 +1,6 @@
 # SensorFusionWS
 
-# System and software used:
+### System and software used:
 - Python
 - ROS melodic
 - Ubuntu 18.04 LTS
@@ -105,3 +105,6 @@ $ roslaunch phone_description phone_rviz.launch
 
 ### Body Roll
 ![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/comparison_roll.png)
+
+### Comparison with accurate Angular Benchmark
+![compare](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/gt_2.png)
