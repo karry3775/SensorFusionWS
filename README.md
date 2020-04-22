@@ -124,10 +124,11 @@ $ rosrun sensor_fusion_pkg gyro_only_orientation.py
 ### Benchmark using ground truth obtained using articulated robotic arm (ABB4600)
 ```
 $ roscore
-$ rosrun sensor_fusion_pkg sensor_streamer.py
-$ rosrun sensor_fusion_pkg ground_truth_comparison.py
-$ rosrun sensor_fusion_pkg kalman_filter.py
-$ rosrun sensor_fusion_pkg complimentary_filter.py
-$ rosrun sensor_fusion_pkg gyro_only_orientation.py
+$ download bagfiles from google drive (square_traj_01.bag and rot_180_01.bag) and place in random folder
+$ open new terminal and type "rqt_bag" and navigate to one of the bagfiles
+$ right click on the topics "Accel_topic_stamped", "Gyro_topic_stamped", "Magno_topic_stamped" and "ee_rotation_stamped" and click "publish" to publish these topics
+$ "rosrun sensor_fusion_pkg kalman_filter_robot.py" in separate terminal
+$ Click the play button to publish topics.  You should see text being printed in executable terminal
+$ Stop publishing at any time and press ctrl+c in terminal.  Plot will be generated
 ```
 
