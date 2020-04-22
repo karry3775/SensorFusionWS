@@ -27,7 +27,7 @@ $ roslaunch phone_description phone_rviz.launch
 
 ```
 
-### Visualize Phone Orientation (Fused orientation from Gyro, Accelerometer and Magnetometer using Complimentary Filter)
+### Visualize Phone Orientation (Fused orientation from Gyro, Accelerometer and Magnetometer using Complementary Filter)
 ```
 $ roscore
 $ rosrun sensor_fusion_pkg sensor_streamer.py
@@ -36,8 +36,20 @@ $ roslaunch phone_description phone_spawn.launch
 $ roslaunch phone_description phone_rviz.launch
 
 ```
+### Equations used for Complementary Filter
+#### Accelerometer
+![roll_accel](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/a_roll.gif)
+![pitch_accel](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/pitch_a.gif)
+#### Magnetometer
+![M_x](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/Mx_mag.gif)
+![M_y](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/My_mag.gif)
+![m_yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/yaw_mag.gif)
+#### Gyroscope
+![roll_g](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/roll_gyro.gif)
+![pitch_g](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/pitch_gyro.gif)
+![yaw_g](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/yaw_gyro.gif)
 
-### Demonstration of Complimentary Filter
+### Demonstration of Complementary Filter
 
 [![Complimentary Filter](http://img.youtube.com/vi/bj4u9_aLW6o/0.jpg)](https://www.youtube.com/watch?v=bj4u9_aLW6o "Complimentary Filter")
 
