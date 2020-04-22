@@ -68,6 +68,21 @@ $ roslaunch phone_description phone_spawn.launch
 $ roslaunch phone_description phone_rviz.launch
 
 ```
+### Equations used for Kalman Filter
+#### Prediction
+![kf_prediction](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kf_prediction.gif)
+
+![kf_prediction_cov](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kf_prediction_cov.gif)
+
+#### Kalman Gain
+![kgain_1](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kgain_1.gif)
+
+![kgain_2](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kgain_2.gif)
+
+#### Correction
+![kf_correction_state](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kf_correction_state.gif)
+
+![kf_correction_cov](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/kf_correction_cov.gif)
 ### Comparison between Kalman Filter and Complimentary Filter estimates
 #### Body Yaw 
 ![Body Yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/yaw_comparison.png)
