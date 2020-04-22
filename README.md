@@ -45,7 +45,7 @@ $ roslaunch phone_description phone_rviz.launch
 #### Magnetometer
 ![M_x](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/Mx_mag.gif)
 
-![M_y](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/My_mag.gif)\
+![M_y](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/My_mag.gif)
 
 ![m_yaw](https://github.com/karry3775/SensorFusionWS/blob/master/src/images/yaw_mag.gif)
 #### Gyroscope
