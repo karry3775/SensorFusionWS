@@ -3,7 +3,7 @@
 # System and software used:
 - Python
 - ROS melodic
-- Ubuntu 18.01 LTS
+- Ubuntu 18.04 LTS
 - Gazebo 9 simulator
 
 ### A ROS-based open-source software for fusing mobile sensor data and visualizing SmartPhone Orientation
