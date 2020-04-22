@@ -132,3 +132,5 @@ $ Click the play button to publish topics.  You should see text being printed in
 $ Stop publishing at any time and press ctrl+c in terminal.  Plot will be generated
 ```
 ![robot](https://github.com/karry3775/SensorFusionWS/blob/master/src/SensorFusion/images/robot_arm_benchmark.png)
+
+The graphic above is output by following the above procedure.  The red line is the ground truth orientation data collected form the robotic manipulator using forward kinematics.  The blue line is the kalman filter's estimate of the phone orientation during execution of the trajectory.
