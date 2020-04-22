@@ -83,7 +83,12 @@ def gyro_cb(msg_gyro):
 
     # integrate using eulers integration method to find the estimates and covariance
     # prediction
-    q, P = integrateTillT(q, dt, time_elapsed, wx, wy, wz, P)
+    # q, P = integrateTillT(q, dt, time_elapsed, wx, wy, wz, P)
+    # make the state prediction
+    current_gyro_quat = quaternion_from_euler(wx * dt, wy * dt, wz * dt)
+    q = quaternion_multiply(current_gyro_quat, q)
+    # make the covariance prediction
+    P += Q
 
     rollF, pitchF, yawF = euler_from_quaternion(q)
     print("[GYRO_CB] rollF : {}, pitchF : {}, yawF : {}, P: \n{}".format(m.degrees(rollF), m.degrees(pitchF), m.degrees(yawF), P))
@@ -102,6 +107,7 @@ def gyro_cb(msg_gyro):
 
 
 def fusion_cb(msg_gyro, msg_accel, msg_mag):
+    print("entered fusion")
     global q, prev_time, P, INI_SET
 
     SKIP_GYRO = False
@@ -148,9 +154,15 @@ def fusion_cb(msg_gyro, msg_accel, msg_mag):
         time_elapsed = cur_time - prev_time
         prev_time = cur_time
 
+        print("starting integrate till T")
         # integrate using eulers integration method to find the estimates and covariance
-        q, P = integrateTillT(q, dt, time_elapsed, wx, wy, wz, P)
-
+        # q, P = integrateTillT(q, dt, time_elapsed, wx, wy, wz, P)
+        # make the state prediction
+        current_gyro_quat = quaternion_from_euler(wx * dt, wy * dt, wz * dt)
+        q = quaternion_multiply(current_gyro_quat, q)
+        # make the covariance prediction
+        P += Q
+        print("done integrating")
         # extract angles
         rollF, pitchF, yawF = euler_from_quaternion(q)
 
