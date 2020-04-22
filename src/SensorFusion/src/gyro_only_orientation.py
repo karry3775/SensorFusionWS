@@ -42,7 +42,7 @@ def gyro_cb(msg_gyro):
     rollG, pitchG, yawG = euler_from_quaternion(q)
 
     # lets publish this transform
-    tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
+    # tf_br.sendTransform((0, 0, 0.5), (q[0],q[1],q[2],q[3]), Time.now(), "base_link", "world")
 
     # print the rollG, pitchG, yawG
     if DEBUG:

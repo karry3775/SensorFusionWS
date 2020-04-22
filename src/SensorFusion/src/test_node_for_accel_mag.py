@@ -55,6 +55,7 @@ def got_accel_mag(msg_accel, msg_mag):
     Mx = mx * m.cos(pitchA) + mz * m.sin(pitchA)
     My = mx * m.sin(rollA) * m.sin(pitchA) + my * m.cos(rollA) - mz * m.sin(rollA) * m.cos(pitchA)
 
+
     yawM = m.atan2(-My, Mx)
 
     if DEBUG:
