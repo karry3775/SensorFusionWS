@@ -22,7 +22,7 @@ $ roslaunch phone_description phone_rviz.launch
 
 ```
 
-### Visualize Phone Orientation (Just from Gyroscope data)
+### Visualize Phone Orientation (Just from Gyroscope data) [transform braodcaster needs to be enabled]
 ```
 $ roscore
 $ rosrun sensor_fusion_pkg sensor_streamer.py
@@ -33,6 +33,7 @@ $ roslaunch phone_description phone_rviz.launch
 ```
 
 ### Visualize Phone Orientation (Fused orientation from Gyro, Accelerometer and Magnetometer using Complementary Filter)
+### [transform braodcaster needs to be enabled]
 ```
 $ roscore
 $ rosrun sensor_fusion_pkg sensor_streamer.py
@@ -71,6 +72,7 @@ $ roslaunch phone_description phone_rviz.launch
 
 
 ### Visualize Phone Orientation (Fused orientation from Gyro, Accelerometer and Magnetometer using Kalman Filter)
+### [transform braodcaster needs to be enabled]
 ```
 $ roscore
 $ rosrun sensor_fusion_pkg sensor_streamer.py
